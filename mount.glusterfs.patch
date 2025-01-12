@@ -1,0 +1,30 @@
+773,779d772
+<     if [ "x${uname_s}" = "xLinux" -a $# -ge 2 ] ; then
+<         volfile_loc=$1
+<         mount_point=$2
+< 
+<         ## `mount` specifies options as a last argument
+<         shift 2;
+<     fi
+784c777
+< 		shift 2;
+---
+>                 shift 2;
+805,809c798,804
+< 
+<     if [ "x${uname_s}" = "xNetBSD" ] ; then
+<         volfile_loc=$1
+<         mount_point=$2
+<     fi
+---
+>     # Since util-linux 2.40.3. 'mount -t glusterfs' will call
+>     # 'mount -o <OPTIONS> <VOLFILE> <MOUNT POINT>' instead of
+>     # 'mount <VOLFILE> <MOUNT POINT> -o <OPTIONS>'. This fix
+>     # will adapt to both mount calling orders.
+>     # https://github.com/daimh/glusterfs-patch
+>     volfile_loc=$1
+>     mount_point=$2
+842c837
+<     grep_ret=$(echo ${mount_point} | grep '^\-o');
+---
+>     grep_ret=$(echo ${mount_point} | grep '^-o');
